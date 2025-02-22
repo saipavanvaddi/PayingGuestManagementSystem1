@@ -1,0 +1,32 @@
+D:\Lotesztask\newcombine\task21\lotez_it_admin\admin_soft\templates\layouts\base-auth.html
+Lotez Pvt ltd  -
+
+D:\Lotesztask\newcombine\task21\lotez_it_admin\admin_soft\templates\pages\index.html
+Lotez UI Dashboard
+
+D:\Lotesztask\newcombine\task21\lotez_it_admin\admin_soft\templates\pages\rtl.html
+Lotez Soft Dashboard
+
+
+D:\Lotesztask\newcombine\task21\lotez_it_admin\admin_soft\templates\admin\index.html
+Lotez UI Dashboard -
+
+D:\Lotesztask\newcombine\task21\lotez_it_admin\admin_soft\templates\includes\configurator.html
+Lotez UI Configuration 3
+
+
+D:\Lotesztask\newcombine\task21\lotez_it_admin\admin_soft\templates\includes\
+footer, header .html
+
+Lotez Dashboard title -head.html
+notifications - navigation.html
+Lotez Soft Dashboard 4 - sidebar.html
+
+D:\Lotesztask\newcombine\task21\lotez_it_admin\admin_soft\templates\layouts\base-auth.html
+upper menu bar
+
+
+D:\Lotesztask\newcombine\task21\lotez_it_admin\admin_soft\templates\accounts\login.html
+-accounts/login 
+welcome back
+ - changed email to username
