@@ -28,7 +28,6 @@ class RoomForm(forms.ModelForm):
             'rent_amount': forms.TextInput(attrs={'class': 'form-control'}),
             'status': forms.Select(attrs={'class': 'form-select'}),
         }
-
 class TenantForm(forms.ModelForm):
     PROOF_CHOICES = [
         ("Aadhar", "Aadhar"),
@@ -109,7 +108,6 @@ class TenantForm(forms.ModelForm):
             'proof_file': forms.FileInput(attrs={'class': 'form-control'}),
         } 
 
-
 class PgOwnerProfileForm(forms.ModelForm):
     address = forms.CharField(widget=forms.Textarea(attrs={'rows': 3, 'class': 'form-control small-textarea'}))
     class Meta:
@@ -141,7 +139,7 @@ class ComplaintForm(forms.ModelForm):
         model = Complaint
         fields = ['complaint_text']
 
-
+#---------------Apartment-------------------------------------------
 
 
 

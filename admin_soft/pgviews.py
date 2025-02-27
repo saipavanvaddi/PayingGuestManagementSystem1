@@ -241,7 +241,6 @@ def pg_owner_tenant_dashboard(request):
     return render(request, 'pg/owner_tenant_dashboard.html', context)
 
 
-
 def edit_tenant(request, tenant_id):
     tenant = get_object_or_404(Tenant, id=tenant_id)
     old_bed=tenant.assigned_bed
@@ -255,7 +254,7 @@ def edit_tenant(request, tenant_id):
                 room_number, bed_number = "Unknown", "Unknown"
                 match = re.search(r"Room (\d+) - Bed (\d+)", str(assigned_bed))
                 if match:
-                    room_number = {match.group(1)}
+                    room_number = match.group(1)
                     bed_number = f"Bed {match.group(2)}"
                 room_amount = Room.objects.get(room_number=room_number)
                 tenant.payment_amount = room_amount.rent_amount

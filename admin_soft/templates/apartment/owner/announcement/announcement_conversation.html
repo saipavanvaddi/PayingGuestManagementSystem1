@@ -1,0 +1,43 @@
+{% extends "apartment/owner/base/apartment_owner_base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Announcement Conversation</h2>
+    
+    <!-- Announcement Details -->
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">{{ announcement.title }}</h5>
+            <p class="card-text">{{ announcement.message }}</p>
+            <small class="text-muted">Posted on {{ announcement.created_at|date:"d M Y, H:i" }}</small>
+        </div>
+    </div>
+
+    <!-- Replies Section -->
+    <h4>Replies</h4>
+    <div class="list-group mb-3">
+        {% for reply in replies %}
+        <div class="list-group-item">
+            <div class="d-flex justify-content-between">
+                <strong>{{ reply.sender }}</strong>
+                <small class="text-muted">{{ reply.timestamp|date:"d M Y, H:i" }}</small>
+            </div>
+            <p class="mt-1">{{ reply.message }}</p>
+        </div>
+        {% empty %}
+        <p class="text-muted">No replies yet.</p>
+        {% endfor %}
+    </div>
+
+    <!-- Reply Form -->
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <textarea class="form-control" id="message" name="message" rows="3" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Post Reply</button>
+    </form>
+
+    <a href="{% url 'owner_announcements' %}" class="btn btn-secondary mt-3">Back to Announcements</a>
+</div>
+{% endblock %}

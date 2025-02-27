@@ -1,0 +1,50 @@
+{% extends "apartment/admin/base/apartment_admin_base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-3">Announcement Conversation</h2>
+
+    <!-- Original Announcement -->
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">{{ announcement.title }}</h5>
+        </div>
+        <div class="card-body">
+            <p>{{ announcement.message }}</p>
+            <small class="text-muted">Posted on: {{ announcement.created_at|date:"d M Y, H:i" }}</small>
+        </div>
+    </div>
+
+    <!-- Replies Section -->
+    <h4>Replies</h4>
+    <div class="list-group mb-4">
+        {% for reply in replies %}
+        <div class="list-group-item">
+            <div class="d-flex justify-content-between">
+                <div>
+                    <!-- {% if reply.sender == "Admin" %}
+                        <span class="badge bg-danger">Admin</span>
+                    {% else %}
+                        <span class="badge bg-success">Owner</span>
+                    {% endif %} -->
+                    <strong>{{ reply.sender }}</strong>
+                </div>
+                <small class="text-muted">{{ reply.timestamp|date:"d M Y, H:i" }}</small>
+            </div>
+            <p class="mt-2">{{ reply.message }}</p>
+        </div>
+        {% empty %}
+        <p class="text-muted">No replies yet. Be the first to respond!</p>
+        {% endfor %}
+    </div>
+
+    <!-- Reply Form -->
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <textarea name="message" class="form-control" rows="3" placeholder="Write your reply here..." required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Reply</button>
+    </form>
+</div>
+{% endblock %}

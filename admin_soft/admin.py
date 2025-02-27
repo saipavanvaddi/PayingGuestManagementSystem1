@@ -29,8 +29,8 @@ class HospitalAdmin(admin.ModelAdmin):
 from django.contrib import admin
 from django import forms
 from django.contrib.auth.hashers import make_password
-from .models import Apartment, PG
-
+from .models import PG
+from .apartmentmodels import Apartment
 class ApartmentAdminForm(forms.ModelForm):
     """Custom form for the Apartment model to ensure password hashing."""
     class Meta:

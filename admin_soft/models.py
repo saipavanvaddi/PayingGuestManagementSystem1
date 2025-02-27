@@ -270,26 +270,4 @@ class Appointment(models.Model):
 
 #-----------------------------------------------------------------------------------
 
-class Apartment(models.Model):
-    apartment_name = models.CharField(max_length=150, unique=True)
-    name = models.CharField(max_length=150, unique=True)
-    contact_number = models.CharField(
-        max_length=10,
-        validators=[RegexValidator(r'^\d{10}$', 'Enter a valid 10-digit contact number')]
-    )
-    email = models.EmailField(unique=True)
-    address = models.TextField(blank=True, null=True)
-    password = models.CharField(max_length=128)  # Secure password storage
-    role = models.CharField(max_length=128, default='apartment')
 
-    def set_password(self, raw_password):
-        """Hashes and stores the password securely using Django's make_password."""
-        self.password = make_password(raw_password)
-        self.save(update_fields=["password"])
-
-    def check_password(self, raw_password):
-        """Checks if the given password matches the stored hash."""
-        return check_password(raw_password, self.password)
-
-    def __str__(self):
-        return self.name

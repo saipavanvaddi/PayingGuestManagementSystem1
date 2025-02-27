@@ -1,26 +1,58 @@
 from django.urls import path
 from admin_soft import views
-from admin_soft import pgviews
+from admin_soft import pgviews, apartmentviews
 from django.contrib.auth import views as auth_views
 
 
 urlpatterns = [
 
+
+    path('apartment/admin/login', apartmentviews.ApartmentLoginViewAdmin.as_view(), name='apartment_owner_login'),
+    path('apartment/admin/owner_dashboard', apartmentviews.apartment_admin_dashboard, name='apartment_admin_dashboard'),
+    path("apartment/admin/owner-logout/", apartmentviews.apartment_admin_logout, name="apartment_owner_logout"),
+    path('flats/', apartmentviews.list_flats, name='list_flats'),
+    path('flats/add/', apartmentviews.add_flat, name='add_flat'),
+    path('flats/<int:pk>/', apartmentviews.ApartmentFlatDetailView.as_view(), name='view_flat'),
+    path('flats/edit/<int:pk>/', apartmentviews.edit_flat, name='edit_flat'),
+    path('flats/delete/<int:pk>/', apartmentviews.delete_flat, name='delete_flat'),
+    path('apartment/payments/', apartmentviews.list_payments, name='apartment_payments'),
+    path('apartment/payments/update_status/', apartmentviews.update_payment_status, name='update_payment_status'),
+    
+    path("apartment/flat/login/", apartmentviews.apartment_flat_login, name="apartment_flat_login"),
+    path("apartment/flat/dashboard/", apartmentviews.apartment_flat_dashboard, name="apartment_flat_dashboard"),
+    path("apartment/flat/logout/", apartmentviews.apartment_flat_logout, name="apartment_flat_logout"),
+
+    path("apartment/owner/complaints/", apartmentviews.apartment_flat_complaints, name="apartment_flat_complaints"),
+    path("apartment/owner/complaints/<int:complaint_id>/", apartmentviews.apartment_flat_complaint_replies, name="apartment_flat_complaint_replies"),
+    path("apartment/admin/complaints/", apartmentviews.admin_complaint_list, name="apartment_admin_complaint_list"),
+    path("apartment/admin/complaints/reply/<int:complaint_id>/", apartmentviews.admin_complaint_reply, name="apartment_admin_complaint_reply"),
+    path("apartment/complaints/<int:complaint_id>/solved/", apartmentviews.apartment_mark_complaint_solved, name='apartment_mark_complaint_solved'),
+    path("apartment/owner/make-payment/", apartmentviews.make_payment, name="owner_make_payment"),
+    path("apartment/owner/view-payments/", apartmentviews.view_payments, name="owner_payments_view"),
+
+    path('apartment/admin/send-announcement/', apartmentviews.send_announcement, name='send_announcement'),
+    path('apartment/owner/announcements/', apartmentviews.owner_announcements, name='owner_announcements'),
+    path('apartment/admin/list-announcements/', apartmentviews.list_announcements, name='list_announcements'),
+    path('apartment/admin/announcements/<int:announcement_id>/conversation/', apartmentviews.admin_announcement_conversation, name='admin_announcement_conversation'),
+        path('apartment/owner/announcements/<int:announcement_id>/', apartmentviews.owner_announcement_conversation, name='owner_announcement_conversation'),
+    path('apartment/owner/profile/', apartmentviews.flat_owner_profile, name='flat_owner_profile'),
+    path('apartment/owner/profile/edit/',apartmentviews.flat_edit_owner_profile, name='flat_edit_owner_profile'),
+#----------------------------------------------------------------------------------
     path('pg/owner-login', pgviews.PGLoginViewOwner.as_view(), name='pg_owner_login'),
     path('pg/owner_dashboard', pgviews.dashboard_view, name='pg_owner_dashboard'),
     path("pg/owner-logout/", pgviews.pg_owner_logout, name="pg_owner_logout"),
-    path('manage-pg/', pgviews.manage_pg, name='manage_pg'),    
-    path('rooms/', pgviews.room_dashboard, name='room_dashboard'),
-    path('rooms/add/', pgviews.add_room, name='add_room'),
-    path('rooms/edit/<int:room_id>/', pgviews.edit_room, name='edit_room'),
-    path('rooms/delete/<int:room_id>/', pgviews.delete_room, name='delete_room'),
-    path('pg-owner/', pgviews.pg_owner_profile, name='pg_owner_profile'),
-    path('tenants/', pgviews.pg_owner_tenant_dashboard, name='pg_owner_tenant_dashboard'),
-    path('pg-owner/edit/', pgviews.pg_owner_profile_edit, name='pg_owner_profile_edit'),
+    path('pg/manage-pg/', pgviews.manage_pg, name='manage_pg'),    
+    path('pg/rooms/', pgviews.room_dashboard, name='room_dashboard'),
+    path('pg/rooms/add/', pgviews.add_room, name='add_room'),
+    path('pg/rooms/edit/<int:room_id>/', pgviews.edit_room, name='edit_room'),
+    path('pg/rooms/delete/<int:room_id>/', pgviews.delete_room, name='delete_room'),
+    path('pg/pg-owner/', pgviews.pg_owner_profile, name='pg_owner_profile'),
+    path('pg/tenants/', pgviews.pg_owner_tenant_dashboard, name='pg_owner_tenant_dashboard'),
+    path('pg/pg-owner/edit/', pgviews.pg_owner_profile_edit, name='pg_owner_profile_edit'),
     
-    path("edit-room/<int:room_id>/", pgviews.edit_room, name="edit_room"),
-    path('edit-tenant/<int:tenant_id>/', pgviews.edit_tenant, name='edit_tenant'),
-    path('delete-tenant/<int:tenant_id>/',pgviews.delete_tenant, name='delete_tenant'),
+    path("pg/edit-room/<int:room_id>/", pgviews.edit_room, name="edit_room"),
+    path('pg/edit-tenant/<int:tenant_id>/', pgviews.edit_tenant, name='edit_tenant'),
+    path('pg/delete-tenant/<int:tenant_id>/',pgviews.delete_tenant, name='delete_tenant'),
     path('pg/tenant/login/', pgviews.TenantLoginView.as_view(), name='pg_tenant_login'),
     path('pg/tenant/dashboard', pgviews.tenant_dashboard, name='pg_tenant_dashboard'),
     path("pg/tenants/profile/", pgviews.pg_tenant_profile, name="pg_tenant_profile"),
@@ -28,20 +60,27 @@ urlpatterns = [
     path("pg/tenants/complaints/", pgviews.pg_tenant_complaints, name="pg_tenant_complaints"),
     path("pg/tenants/payments/", pgviews.pg_tenant_payments, name="pg_tenant_payments"),
     path("pg/tenants/logout/", pgviews.pg_tenant_logout, name="pg_tenant_logout"),
-    path('payments/', pgviews.pg_tenant_payments, name='pg_tenant_payments'),
-    path('make_payment/', pgviews.pg_tenant_make_payment, name='pg_tenant_make_payment'),
+    path('pg/payments/', pgviews.pg_tenant_payments, name='pg_tenant_payments'),
+    path('pg/make_payment/', pgviews.pg_tenant_make_payment, name='pg_tenant_make_payment'),
 
-    path('owner/payments/', pgviews.owner_payments, name='owner_payments'),
+    path('pg/owner/payments/', pgviews.owner_payments, name='owner_payments'),
     # path('owner/payment/update/<int:payment_id>/', pgviews.update_payment_status, name='update_payment_status'),
 
     # Complaints
-    path('owner/complaints/', pgviews.owner_complaints, name='owner_complaints'),
-    path('owner/complaint/resolve/<int:complaint_id>/', pgviews.resolve_complaint, name='resolve_complaint'),
-    path('owner/payment/complete/<int:payment_id>/', pgviews.mark_payment_completed, name='mark_payment_completed'),
-    path('owner/payment/failed/<int:payment_id>/', pgviews.mark_payment_failed, name='mark_payment_failed'),
+    path('pg/owner/complaints/', pgviews.owner_complaints, name='owner_complaints'),
+    path('pg/owner/complaint/resolve/<int:complaint_id>/', pgviews.resolve_complaint, name='resolve_complaint'),
+    path('pg/owner/payment/complete/<int:payment_id>/', pgviews.mark_payment_completed, name='mark_payment_completed'),
+    path('pg/owner/payment/failed/<int:payment_id>/', pgviews.mark_payment_failed, name='mark_payment_failed'),
+
+#------------------------------------------------------------------------
 
 
-    
+
+
+
+
+
+#-------------------------------------------------------------------------------    
     path('', views.index, name='index'),
     path('billing/', views.billing, name='billing'),
     path('tables/', views.tables, name='tables'),
